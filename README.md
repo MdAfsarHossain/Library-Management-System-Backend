@@ -104,7 +104,7 @@ library-management-system/
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/MdAfsarHossain/Tasker-React.git
+    git clone https://github.com/MdAfsarHossain/Library-Management-System-Backend.git
     ```
 
 2.  Navigate to the project directory:
