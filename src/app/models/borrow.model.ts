@@ -18,6 +18,7 @@ const borrowSchema = new Schema<IBorrow, BookStaticMethods>(
   }
 );
 
+// Static Methods
 borrowSchema.static(
   "updateAvailability",
   async function (bookId: string, quantity: number) {
@@ -38,9 +39,7 @@ borrowSchema.static(
       book.available = false;
     }
 
-    // console.log("Before save: ", book);
     await book.save();
-    // console.log("Afrer Save: ", book);
 
     // console.log("This message from static methods.");
     return quantity;
