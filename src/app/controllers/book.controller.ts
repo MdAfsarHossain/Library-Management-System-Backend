@@ -89,6 +89,13 @@ booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
     const bookId = req.params.bookId;
     const data = await Book.findById(bookId);
 
+    if (!data) {
+      res.status(404).json({
+        status: false,
+        message: "Failed to retrive books",
+      });
+    }
+
     res.status(201).json({
       status: true,
       message: "Book retrieved successfully",
@@ -110,6 +117,13 @@ booksRoutes.delete("/:bookId", async (req: Request, res: Response) => {
   //   const data = await Book.deleteOne({ _id: bookId });
   const data = await Book.findOneAndDelete({ _id: bookId });
 
+  if (!data) {
+    res.status(404).json({
+      success: false,
+      message: "Book not found",
+    });
+  }
+
   res.status(201).json({
     success: true,
     messaage: "Book deleted successfully",
@@ -122,6 +136,14 @@ booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
   const updateBody = req.body;
 
+  const findBook = await Book.findById(bookId);
+  if (!findBook) {
+    res.status(404).json({
+      success: false,
+      message: "Book not found",
+    });
+  }
+
   const data = await Book.findByIdAndUpdate(bookId, updateBody, { new: true });
 
   res.status(201).json({
@@ -130,26 +152,3 @@ booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
     data,
   });
 });
-
-// library-management-api/
-// ├── src/
-// │   ├── models/
-// │   │   ├── book.model.ts
-// │   │   └── borrow.model.ts
-// │   ├── controllers/
-// │   │   ├── book.controller.ts
-// │   │   └── borrow.controller.ts
-// │   ├── routes/
-// │   │   ├── book.route.ts
-// │   │   └── borrow.route.ts
-// │   ├── middlewares/
-// │   │   └── errorHandler.ts
-// │   ├── config/
-// │   │   └── database.ts
-// │   ├── utils/
-// │   │   └── apiFeatures.ts
-// │   ├── app.ts
-// │   └── server.ts
-// ├── package.json
-// ├── tsconfig.json
-// └── README.md
