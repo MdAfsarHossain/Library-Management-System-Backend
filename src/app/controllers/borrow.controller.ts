@@ -44,6 +44,14 @@ borrowRoutes.post("/", async (req: Request, res: Response) => {
 
     // const updateInfo = await Borrow.updateAvailability(bookId, quantity);
     // console.log("This is from borrow controller: ", updateInfo);
+
+    if (findingBook?.copies! < quantity) {
+      res.status(404).json({
+        status: false,
+        message: "Not enough copies available",
+      });
+    }
+
     await Borrow.updateAvailability(bookId, quantity);
 
     const data = await Borrow.create(req.body);
