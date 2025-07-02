@@ -4,7 +4,14 @@ import { booksRoutes } from "./app/controllers/book.controller";
 import { borrowRoutes } from "./app/controllers/borrow.controller";
 const app: Application = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://library-management-system-client-rho.vercel.app",
+    ],
+  })
+);
 app.use(express.json());
 
 app.use("/api/books", booksRoutes);
