@@ -44,7 +44,7 @@ booksRoutes.get("/", async (req: Request, res: Response) => {
     const genre = req.query.filter as string;
     const sortBy = req.query.sortBy as string;
     const sortAscOrDesc = req.query.sort as string;
-    const limitBooks = (req.query.limit as string) || "10";
+    const limitBooks = (req.query.limit as string) || "20";
 
     let query = Book.find();
     // console.log("Line 49: ", query);
